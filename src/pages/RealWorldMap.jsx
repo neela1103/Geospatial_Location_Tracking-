@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+// Fix for the default marker icon issue
+delete L.Icon.Default.prototype._getIconUrl;
 
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 const RealWorldMap = () => {
-  const [position, setPosition] = useState([51.505, -0.09]); // Default position: London
-  const [center, setCenter] = useState([51.505, -0.09]); // Default map center: London
+  const [position, setPosition] = useState([28.6139, 77.209]); // Default position: India
+  const [center, setCenter] = useState([28.6139, 77.209]); // Default map center: India
 
   useEffect(() => {
     // Check if geolocation is available
@@ -41,16 +50,10 @@ const RealWorldMap = () => {
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
-  const bounds = [
-    [-90, -180], // Southwest corner
-    [90, 180], // Northeast corner
-  ];
-
   return (
     <MapContainer
-    //   bounds={bounds}
       center={center} // Center the map dynamically
-      zoom={13}
+      zoom={10}
       style={{ height: "100vh", width: "100%" }}
     >
       <TileLayer

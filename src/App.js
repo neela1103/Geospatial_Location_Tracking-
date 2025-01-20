@@ -2,8 +2,7 @@ import React from "react";
 import FictionalMap from "./pages/FictionalMap";
 import RealWorldMap from "./pages/RealWorldMap";
 import MapSwitcher from "./pages/MapSwitcher";
-import TempMapt from "./pages/TempMap";
-import TempMap from "./pages/TempMap";
+// import TempMap from "./pages/TempMap";
 
 const App = () => {
   return (

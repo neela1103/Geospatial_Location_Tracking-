@@ -104,10 +104,10 @@ const FictionalMap = () => {
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   const trackGeolocation = () => {
-    const MIN_LAT = 0; // Adjust based on the real-world region
-    const MAX_LAT = 90; // Adjust based on the real-world region
-    const MIN_LON = 0; // Adjust based on the real-world region
-    const MAX_LON = 180; // Adjust based on the real-world region
+    const MIN_LAT = 0;
+    const MAX_LAT = 90;
+    const MIN_LON = 0;
+    const MAX_LON = 180;
 
     if (navigator.geolocation) {
       const id = navigator.geolocation.watchPosition(
@@ -122,6 +122,7 @@ const FictionalMap = () => {
             clamp(fictionalLat, 0, 1000),
             clamp(fictionalLon, 0, 1000),
           ];
+          console.log(fictionalPosition, ">>>>>Fictional Position");
 
           //   console.log("fictionalPosition:", fictionalPosition);
           setUserPosition(fictionalPosition);
@@ -148,35 +149,22 @@ const FictionalMap = () => {
         navigator.geolocation.clearWatch(watchId); // Pass the watchId to clearWatch
       }
     };
-  }, []); // No dependency array issue anymore; runs only once on mount
+  }, []);
 
   return (
     <MapContainer
       center={[500, 500]}
       zoom={1}
       style={{ height: "100vh", width: "100%" }}
-      crs={L.CRS.Simple} // Use a simple CRS for fictional maps
+      crs={L.CRS.Simple} // Using a simple CRS for fictional maps
     >
-      {/* Image overlay for the fictional map */}
       <ImageOverlay bounds={bounds} url="assets/fictional-map-image.jpg" />
-
-      {/* Add markers for points of interest */}
-      {/* {pointsOfInterest.map((point) => (
-        <Marker key={point.id} position={point.position}>
-          <Popup>
-            <h3>{point.name}</h3>
-            <p>{point.description}</p>
-          </Popup>
-        </Marker>
-      ))} */}
 
       {pointsOfInterest.map((point, index) => (
         <CircleMarker
           key={index}
-          center={point.position} // Correctly pass the coordinates
-          radius={8} // Circle size
-          //   color="pink"
-          //   fillColor=""
+          center={point.position}
+          radius={8}
           color="#7B1FA2"
           fillColor="pink"
           fillOpacity={0.7}
@@ -200,10 +188,6 @@ const FictionalMap = () => {
       {/* Trekking route */}
       <Polyline positions={trekkingRoute} color="blue" />
 
-      {/* Add a marker for the user's current position */}
-      {/* <Marker position={userPosition}>
-        <Popup>Current Position: {userPosition.join(", ")}</Popup>
-      </Marker> */}
       <Marker position={userPosition}>
         <Popup>
           <h2 style={{ margin: "0", color: "#4CAF50" }}>You are here</h2>

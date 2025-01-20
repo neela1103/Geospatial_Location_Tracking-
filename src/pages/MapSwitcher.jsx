@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Stack, Typography, Box } from "@mui/material";
 
 const MapSwitcher = ({ children }) => {
-  const [currentMap, setCurrentMap] = useState("fictional");
+  const [currentMap, setCurrentMap] = useState("realworld");
 
   const handleSwitch = (mapType) => {
     setCurrentMap(mapType);
@@ -63,17 +63,17 @@ const MapSwitcher = ({ children }) => {
       >
         <Button
           variant="contained"
-          color={currentMap === "fictional" ? "primary" : "secondary"}
-          onClick={() => handleSwitch("fictional")}
-        >
-          Fictional Map
-        </Button>
-        <Button
-          variant="contained"
           color={currentMap === "realworld" ? "primary" : "secondary"}
           onClick={() => handleSwitch("realworld")}
         >
           Real-World Map
+        </Button>
+        <Button
+          variant="contained"
+          color={currentMap === "fictional" ? "primary" : "secondary"}
+          onClick={() => handleSwitch("fictional")}
+        >
+          Fictional Map
         </Button>
       </Stack>
 
